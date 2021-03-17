@@ -10,6 +10,10 @@ module.exports = function validateRegisterInput(data) {
   data.password = !isEmpty(data.password) ? data.password : "";
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
   data.transactionPassword = !isEmpty(data.transactionPassword) ? data.transactionPassword : "";
+  data.pincode = !isEmpty(data.pincode) ? data.pincode : "";
+  data.city = !isEmpty(data.city) ? data.city : "";
+  data.state = !isEmpty(data.state) ? data.state : "";
+  data.fulladdress = !isEmpty(data.fulladdress) ? data.fulladdress : "";
 
   // Name checks
   if (Validator.isEmpty(data.name)) {
@@ -47,6 +51,24 @@ module.exports = function validateRegisterInput(data) {
   if (Validator.equals(data.password, data.transactionPassword)) {
     errors.transactionPassword = "Password and Transaction Password cannot be same";
   }
+
+  //address checks
+  if (Validator.isEmpty(data.pincode)) {
+    errors.pincode = "Pincode field is required";
+  }
+  if (!Validator.isLength(data.pincode, { min: 6, max: 6 })) {
+    errors.pincode = "pincode must be 6 characters";
+  }
+  if (Validator.isEmpty(data.state)) {
+    errors.state = "state field is required";
+  }
+  if (Validator.isEmpty(data.fulladdress)) {
+    errors.fulladdress = "fulladdress field is required";
+  }
+  if (Validator.isEmpty(data.city)) {
+    errors.city = "city field is required";
+  }
+
 
   return {
     errors,
