@@ -9,6 +9,7 @@ module.exports = function validateRegisterInput(data) {
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
+  data.transactionPassword = !isEmpty(data.transactionPassword) ? data.transactionPassword : "";
 
   // Name checks
   if (Validator.isEmpty(data.name)) {
@@ -37,6 +38,14 @@ module.exports = function validateRegisterInput(data) {
 
   if (!Validator.equals(data.password, data.password2)) {
     errors.password2 = "Passwords must match";
+  }
+
+  if (!Validator.isLength(data.transactionPassword, { min: 6, max: 30 })) {
+    errors.transactionPassword = "Transaction Password must be at least 6 characters";
+  }
+
+  if (Validator.equals(data.password, data.transactionPassword)) {
+    errors.transactionPassword = "Password and Transaction Password cannot be same";
   }
 
   return {
