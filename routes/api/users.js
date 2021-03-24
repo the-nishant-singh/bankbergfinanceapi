@@ -147,7 +147,7 @@ router.post("/login", (req, res) => {
             LoginMail(req.body.email)
             res.json({
               success: true,
-              token,
+              token
             });
           }
         );
