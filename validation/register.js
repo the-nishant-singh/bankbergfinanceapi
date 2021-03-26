@@ -17,56 +17,56 @@ module.exports = function validateRegisterInput(data) {
 
   // Name checks
   if (Validator.isEmpty(data.name)) {
-    errors.name = "Name field is required";
+    errors.error = "Name field is required";
   }
 
   // Email checks
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Email field is required";
+    errors.error = "Email field is required";
   } else if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    errors.error = "Email is invalid";
   }
 
   // Password checks
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password field is required";
+    errors.error = "Password field is required";
   }
 
   if (Validator.isEmpty(data.password2)) {
-    errors.password2 = "Confirm password field is required";
+    errors.error = "Confirm password field is required";
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "Password must be at least 6 characters";
+    errors.error = "Password must be at least 6 characters";
   }
 
   if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = "Passwords must match";
+    errors.error = "Passwords must match";
   }
 
   if (!Validator.isLength(data.transactionPassword, { min: 6, max: 30 })) {
-    errors.transactionPassword = "Transaction Password must be at least 6 characters";
+    errors.error = "Transaction Password must be at least 6 characters";
   }
 
   if (Validator.equals(data.password, data.transactionPassword)) {
-    errors.transactionPassword = "Password and Transaction Password cannot be same";
+    errors.error = "Password and Transaction Password cannot be same";
   }
 
   //address checks
   if (Validator.isEmpty(data.pincode)) {
-    errors.pincode = "Pincode field is required";
+    errors.error = "Pincode field is required";
   }
   if (!Validator.isLength(data.pincode, { min: 6, max: 6 })) {
-    errors.pincode = "pincode must be 6 characters";
+    errors.errorv = "pincode must be 6 characters";
   }
   if (Validator.isEmpty(data.state)) {
-    errors.state = "state field is required";
+    errors.error = "state field is required";
   }
   if (Validator.isEmpty(data.fulladdress)) {
-    errors.fulladdress = "fulladdress field is required";
+    errors.error = "fulladdress field is required";
   }
   if (Validator.isEmpty(data.city)) {
-    errors.city = "city field is required";
+    errors.error = "city field is required";
   }
 
 
