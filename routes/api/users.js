@@ -20,6 +20,8 @@ const Cards = require('../../models/Cards')
 const Address = require('../../models/Address')
 //Load checque model
 const Cheque = require('../../models/Cheques')
+// transaction models
+const Transactions = require('../../models/Transaction')
 
 // @route POST api/users/register
 // @desc Register user
@@ -169,7 +171,21 @@ router.get("/userInfo", (req, res) => {
     if (err)
       return res.status(500).send({ auth: false, error: "Invalid Token" });
     User.findById(data.id, { password: 0 }, (err, result) => {
-      res.send(result);
+      Transactions.find({email : result.email}, (err, trans) => {
+        if(err) throw error
+        const userinfo = {
+          balance: result.balance,
+          _id: result._id,
+          name: result.name,
+          email: result.email,
+          phone: result.phone,
+          account: result.account,
+          transactionPassword: result.transactionPassword,
+          date: result.date,
+          Transactions: trans.slice(-5)
+        }
+        return res.send(userinfo);
+      })
     });
   });
 });
