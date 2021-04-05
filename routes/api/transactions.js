@@ -134,15 +134,21 @@ router.post('/getstatement', (req, res) => {
     jwt.verify(token,keys.secretOrKey, (err, data) => {
         if(err) return res.status(500).send({auth : false,error : "Invalid Token"})
         User.findById(data.id, { password: 0, date: 0, _id: 0 }, (err, result) => {
-            Transactions.find({email: result.email,date: {
-                $gte: `${req.body.from}T00:00:00.000+00:00`,
-                $lt: `${req.body.to}T23:59:59.000+00:00`
-            }}, (err, data) => {
-                if(data){
-                    console.log(data.length)
-                    return res.send(data)
-                }
-            })
+            if(!req.body.from || !req.body.to){
+                Transactions.find({email : result.email}, (err, trans) => {
+                    return res.send(trans.slice(-5))
+                })
+            }else{
+                Transactions.find({email: result.email,date: {
+                    $gte: `${req.body.from}T00:00:00.000+00:00`,
+                    $lt: `${req.body.to}T23:59:59.000+00:00`
+                }}, (err, data) => {
+                    if(data){
+                        console.log(data.length)
+                        return res.send(data)
+                    }
+                })
+            }
         })
     })
 })
