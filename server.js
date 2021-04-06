@@ -6,7 +6,6 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const cards = require('./routes/api/cards')
 const transactions = require('./routes/api/transactions')
-const loan = require('./routes/api/loan')
 const cors = require('cors')
 
 const app = express();
@@ -49,8 +48,6 @@ app.use("/api/users", users);
 app.use('/api/cards', cards)
 //transactions route
 app.use('/api/transactions', transactions)
-//loan routes
-app.use('/api/loan', loan)
 
 //health check
 app.get('/health', (req, res) => {
