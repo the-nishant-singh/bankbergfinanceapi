@@ -217,4 +217,5 @@ router.put('/updatePassword', (req, res) => {
       })
   })
 })
+
 module.exports = router;

@@ -222,7 +222,7 @@ router.post('/billandrecharges', (req, res) => {
                         User.updateOne({ _id: data.id }, { balance: result.balance - req.body.amount }, (err, updatedbalance) => {
                             if (err) throw err
                             Transactions.create({
-                                email: result.email,
+                                email: result.email ,
                                 amount: req.body.amount,
                                 type: 'DR',
                                 curBalance: result.balance - req.body.amount,

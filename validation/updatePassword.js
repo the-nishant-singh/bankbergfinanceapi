@@ -11,19 +11,19 @@ module.exports = function UpdatePassword(data) {
   
   // Password checks
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password field is required";
+    errors.error = "Password field is required";
   }
   if (Validator.isEmpty(data.newpassword)) {
-    errors.newpassword = "New password field is required";
+    errors.error = "New password field is required";
   }
   if (Validator.isEmpty(data.newpassword2)) {
-    errors.newpassword2 = "Confirm password field is required";
+    errors.error = "Confirm password field is required";
   }
   if (!Validator.equals(data.newpassword, data.newpassword2)) {
-    errors.newpassword2 = "Passwords must match";
+    errors.error = "Passwords must match";
   }
   if (Validator.equals(data.password, data.newpassword)) {
-    errors.newpassword2 = "New and old Passwords should be different";
+    errors.error = "New and old Passwords should be different";
   }
 
   return {
