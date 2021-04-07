@@ -12,6 +12,8 @@ const Transactions = require('../../models/Transaction')
 const Cheque = require('../../models/Cheques');
 //load order model
 const Order = require('../../models/Orders')
+//import address models
+const Address = require('../../models/Address')
 
 router.get('/transactionhealth', (req, res) => {
     return res.send('transaction route is working')
@@ -209,6 +211,22 @@ router.get('/orderchequebook', (req, res) => {
     })
 })
 
+//get address 
+router.get("/getaddress", (req, res) => {
+    let token = req.headers["x-access-token"];
+    if (!token)
+      return res.status(500).send({ auth: false, error: "No token provided" });
+    jwt.verify(token, keys.secretOrKey, (err, data) => {
+      if (err)
+        return res.status(500).send({ auth: false, error: "Invalid Token" });
+      User.findById(data.id, { password: 0 }, (err, result) => {
+        Address.find({email: result.email}, (err, address) => {
+            if(err) throw err;
+            return res.send(address[0])
+        })
+      });
+    });
+  });
 
 router.post('/billandrecharges', (req, res) => {
     let token = req.headers['x-access-token']
