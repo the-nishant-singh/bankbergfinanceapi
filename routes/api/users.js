@@ -138,7 +138,7 @@ router.post("/login", (req, res) => {
         // User matched
         otp[req.body.email] = OTP.generateOTP(6)
         LoginOtpMail(req.body.email, otp[req.body, email])
-        return res.send("mail send")
+        return res.send({message: "mail sent"})
       } else {
         return res
           .status(400)
