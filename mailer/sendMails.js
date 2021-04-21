@@ -28,6 +28,23 @@ const RegisterMail = (email, account) => {
   });
 };
 
+//login otp
+
+const LoginOtpMail = (email, otp) => {
+  let mailOptions = {
+    from: "bankbergfinance@gmail.com",
+    to: email,
+    subject: "Otp for Login to your account",
+    text: `Use ${otp} code to login to your account. If this Login was not attempted by you then change your password as soon as possible`,
+  };
+
+  transporter.sendMail(mailOptions, (err, data) => {
+    if (err) console.log("error", err);
+    console.log("mail sent!");
+  });
+};
+
+
 // login mail
 const LoginMail = (email) => {
   let mailOptions = {
@@ -132,5 +149,5 @@ const BillandRechargeMail = (email, amount, type, operator, number) => {
 
 
 
-module.exports = {RegisterMail, LoginMail, AddMoneyMail, MoneyTransferMail, MoneyReceivedMail, DebitCardMail, ChequeOrderMail, BillandRechargeMail}
+module.exports = {RegisterMail, LoginMail, AddMoneyMail, MoneyTransferMail, MoneyReceivedMail, DebitCardMail, ChequeOrderMail, BillandRechargeMail, LoginOtpMail}
 
