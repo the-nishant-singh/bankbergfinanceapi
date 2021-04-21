@@ -154,7 +154,7 @@ router.post("/verifyOtp", (req, res) => {
     return res.send({ error: "Enter OTP" })
   } else {
     if (req.body.otp !== otp[req.body.email]) {
-      return res.send({ error: "Ivalid OTP" })
+      return res.send({ error: "Invalid OTP" })
     } else {
       User.findOne({ email: req.body.email }, (err, user) => {
         if (err) throw err;
